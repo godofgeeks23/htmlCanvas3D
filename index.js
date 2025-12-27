@@ -71,10 +71,10 @@ const { vertices: donutModel, faces: donutFaces } = generateTorus(
   15
 );
 
-// const vertices = donutModel;
-// const faces = donutFaces;
-const vertices = cubeModel;
-const faces = cubeFaces;
+const vertices = donutModel;
+const faces = donutFaces;
+// const vertices = cubeModel;
+// const faces = cubeFaces;
 
 function clear() {
   ctx.fillStyle = BACKGROUND_COLOR;
@@ -152,7 +152,9 @@ function frame() {
   clear();
   for (const vertex of vertices) {
     point(
-      toScreenCoordinates(project(translateZ(rotateXZ(vertex, angle), dz)))
+      toScreenCoordinates(
+        project(translateZ(rotateXY(rotateYZ(vertex, angle), angle), dz))
+      )
     );
   }
   for (const face of faces) {
@@ -160,8 +162,12 @@ function frame() {
       const v1 = vertices[face[i]];
       const v2 = vertices[face[(i + 1) % face.length]];
       line(
-        toScreenCoordinates(project(translateZ(rotateXZ(v1, angle), dz))),
-        toScreenCoordinates(project(translateZ(rotateXZ(v2, angle), dz)))
+        toScreenCoordinates(
+          project(translateZ(rotateXY(rotateYZ(v1, angle), angle), dz))
+        ),
+        toScreenCoordinates(
+          project(translateZ(rotateXY(rotateYZ(v2, angle), angle), dz))
+        )
       );
     }
   }
