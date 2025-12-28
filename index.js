@@ -172,7 +172,7 @@ function frame() {
     }
   }
 
-  setTimeout(frame, 1000 / FPS);
+  requestAnimationFrame(frame);
 }
 
-setTimeout(frame, 1000 / FPS);
+frame();
